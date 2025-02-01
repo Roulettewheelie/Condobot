@@ -8,6 +8,9 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 
+# Load bot token from environment variables
+TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+
 # Set up bot
 intents = discord.Intents.default()
 intents.messages = True
@@ -96,5 +99,8 @@ async def upload_to_roblox(file_path, roblox_cookies):
         driver.quit()
         return None
 
-# Run the bot
-bot.run('your_discord_bot_token')
+# Run the bot using the token from the environment variable
+if TOKEN:
+    bot.run(TOKEN)
+else:
+    print("❌ ERROR: DISCORD_BOT_TOKEN not found. Make sure to set it in your environment variables.")
